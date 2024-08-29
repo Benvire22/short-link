@@ -1,6 +1,7 @@
 import express from 'express';
 import ShortLink from '../models/ShortLink';
 import { ShortLinkMutation } from '../types';
+import getShortLink from '../lib/shortLink';
 
 const linksRouter = express.Router();
 
@@ -21,14 +22,13 @@ linksRouter.get('/:shortUrl', async (req, res, next) => {
 
 linksRouter.post('/', async (req, res, next) => {
   try {
-    const originalUrl = req.body.link;
-    if (!req.body.link) {
+    const originalUrl = req.body.originalUrl;
+    if (!req.body.originalUrl) {
       return res.status(400).send({error: 'Link are required!'});
     }
 
     const linkMutation: ShortLinkMutation = {
-      // shortUrl: shortUrl(originalUrl),
-      shortUrl: 'short link',
+      shortUrl: await getShortLink(),
       originalUrl,
     };
 
