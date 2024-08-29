@@ -1,9 +1,7 @@
+import ShortLink from './features/shortLink/ShortLink';
+
 const App = () => {
-  return (
-    <>
-      Start page
-    </>
-  );
+  return <ShortLink />;
 };
 
 export default App;
