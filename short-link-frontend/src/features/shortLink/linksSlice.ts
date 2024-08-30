@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { sendLink } from './linksThunks';
+import { sendLink } from './linksThunk';
 import { ApiLink } from '../../types';
 
 export interface LinksState {

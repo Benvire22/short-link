@@ -10,15 +10,6 @@ const getRandomChar = () => {
   const upperCaseChance = Math.floor(Math.random() * 2);
 
   return upperCaseChance === 1 ? char.toUpperCase() : char;
-
-  // switch (upperCaseChance) {
-  //   case 0:
-  //     return char;
-  //   case 1:
-  //     return char.toUpperCase();
-  //   default:
-  //     return char;
-  // }
 };
 
 const getShortLink = async (): Promise<string> => {

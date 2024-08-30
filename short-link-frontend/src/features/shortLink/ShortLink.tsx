@@ -4,13 +4,14 @@ import { Container, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import SendIcon from '@mui/icons-material/Send';
 import { LoadingButton } from '@mui/lab';
-import { selectLoading, selectShortLink } from './linksSlice';
-import { sendLink } from './linksThunks';
+import { selectError, selectLoading, selectShortLink } from './linksSlice';
+import { sendLink } from './linksThunk';
 
 const ShortLink = () => {
   const [formData, setFormData] = useState('');
   const shortenLink = useAppSelector(selectShortLink);
   const isLoading = useAppSelector(selectLoading);
+  const isError = useAppSelector(selectError);
   const dispatch = useAppDispatch();
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,8 +19,12 @@ const ShortLink = () => {
   };
 
   const submitFormHandler = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await dispatch(sendLink(formData));
+    try {
+      e.preventDefault();
+      await dispatch(sendLink(formData)).unwrap();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -65,10 +70,15 @@ const ShortLink = () => {
             p: 5,
           }}
         >
+          {isError && (
+            <Typography variant="h2" color="red">
+              Sorry, error was occurred!
+            </Typography>
+          )}
           {shortenLink && (
             <>
-              <Typography variant="h3" color="primary">
-                Your shorten link is ready!
+              <Typography variant="h4" color="primary">
+                Your link was shorten and now looks like this:
               </Typography>
               <Typography
                 variant="h4"

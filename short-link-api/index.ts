@@ -21,7 +21,7 @@ const run = async () => {
 
   process.on('exit', () => {
     mongoose.disconnect();
-  })
+  });
 };
 
 void run().catch(console.error);
