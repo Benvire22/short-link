@@ -23,41 +23,66 @@ const ShortLink = () => {
   };
 
   return (
-    <Container component="main" maxWidth="lg">
+    <Container component="main" maxWidth="lg" sx={{ mt: 5 }}>
       <Grid
         container
         direction="column"
-        spacing={2}
+        spacing={4}
         component="form"
         onSubmit={submitFormHandler}
       >
         <Grid>
           <TextField
-            label="Url"
+            label="Enter url"
+            type="url"
             name="url"
             id="url"
             value={formData}
+            required
             onChange={inputChangeHandler}
           />
         </Grid>
-        <Grid>
+        <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
           <LoadingButton
             type="submit"
             loading={isLoading}
-            loadingPosition="start"
+            loadingPosition="end"
             sx={{ p: '8px 20px', fontSize: '24px' }}
-            startIcon={<SendIcon />}
+            endIcon={<SendIcon />}
             variant="contained"
           >
-            <span>Send</span>
+            <span>Shorten</span>
           </LoadingButton>
         </Grid>
       </Grid>
-      {shortenLink && (
-        <Typography variant="h2" component="a" href={`http://localhost:8000/links/${shortenLink.shortUrl}`}>
-          `http://localhost:8000/links/${shortenLink.shortUrl}`
-        </Typography>
-      )}
+      <Grid container direction="column" spacing={4} component="div">
+        <Grid
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 3,
+            p: 5,
+          }}
+        >
+          {shortenLink && (
+            <>
+              <Typography variant="h3" color="primary">
+                Your shorten link is ready!
+              </Typography>
+              <Typography
+                variant="h4"
+                component="a"
+                color="success"
+                href={shortenLink.shortUrl}
+                target="_blank"
+              >
+                {shortenLink.shortUrl}
+              </Typography>
+            </>
+          )}
+        </Grid>
+      </Grid>
     </Container>
   );
 };

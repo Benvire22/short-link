@@ -1,6 +1,6 @@
 import express from 'express';
 import ShortLink from '../models/ShortLink';
-import { ShortLinkMutation } from '../types';
+import { ShortLinkApi, ShortLinkMutation } from '../types';
 import getShortLink from '../lib/shortLink';
 
 const linksRouter = express.Router();
@@ -35,7 +35,13 @@ linksRouter.post('/', async (req, res, next) => {
     const shortLink = new ShortLink(linkMutation);
     await shortLink.save();
 
-    return res.send(shortLink);
+    const savedLink: ShortLinkApi = {
+      _id: shortLink._id,
+      shortUrl: shortLink.shortUrl,
+      originalUrl: shortLink.originalUrl,
+    };
+
+    return res.send(savedLink);
   } catch (e) {
     next(e);
     return res.sendStatus(500);

@@ -16,6 +16,9 @@ export const sendLink = createAsyncThunk(
       return null;
     }
 
-    return shortenLink;
+    return {
+      ...shortenLink,
+      shortUrl: `http://localhost:8000/links/${shortenLink.shortUrl}`,
+    };
   },
 );

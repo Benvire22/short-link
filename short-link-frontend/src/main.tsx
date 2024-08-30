@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import theme from './theme';
 import { store } from './app/store';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
 
 createRoot(document.getElementById('root')!).render(
